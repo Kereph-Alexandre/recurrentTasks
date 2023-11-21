@@ -1,7 +1,13 @@
-<section>
-  <h2>{{ exampleTask.title }}</h2>
-  <p>{{ exampleTask.description }}</p>
-  <p>Prochaine deadline le : {{ exampleTask.execDate }}</p>
-  <p>Récurrence : {{ exampleTask.repeatDelay }} jours</p>
-  <p>État : {{ exampleTask.completed }}</p>
-</section>
+<main class="taskCard">
+  <input
+    class="taskCompletion"
+    type="checkbox"
+    name="taskCompletion"
+    id="taskCompletion"
+  />
+  <section class="text">
+    <h2>{{ exampleTask.title }}</h2>
+    <p>{{ exampleTask.description }}</p>
+  </section>
+  <aside class="deadline">Pour le : {{ exampleTask.execDate }}</aside>
+</main>

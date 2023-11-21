@@ -1,0 +1,20 @@
+@import ../../styles
+
+.taskCard
+    border-radius: 15px
+    background-color: #bef6ca
+    display: flex
+
+    justify-content: space-between
+    padding: 10px
+    gap: 10px
+
+    .text
+        flex: 1 1 auto //Want the text to adapt in size
+
+    .deadline, .taskCompletion
+        flex: 0 0 auto
+        margin: auto
+
+.taskCard:hover
+    box-shadow: 5px 5px 5px grey
