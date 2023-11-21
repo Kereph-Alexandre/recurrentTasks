@@ -9,5 +9,5 @@
     <h2>{{ exampleTask.title }}</h2>
     <p>{{ exampleTask.description }}</p>
   </section>
-  <aside class="deadline">Pour le : {{ exampleTask.execDate }}</aside>
+  <aside class="deadline">{{ exampleTask.execDate | date : "dd/mm/yy" }}</aside>
 </main>
