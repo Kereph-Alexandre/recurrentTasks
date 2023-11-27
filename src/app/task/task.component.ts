@@ -10,5 +10,5 @@ import { RecurringTask } from '../recurring-task';
   styleUrl: './task.component.sass',
 })
 export class TaskComponent {
-  @Input() exampleTask!: RecurringTask;
+  @Input() task!: RecurringTask;
 }
