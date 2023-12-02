@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RecurringTask } from '../recurring-task';
+import { RecurrentTask } from '../recurring-task';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../task.service';
 
@@ -13,7 +13,7 @@ import { TaskService } from '../task.service';
   imports: [CommonModule, TaskComponent],
 })
 export class DisplayTasksComponent implements OnInit {
-  tasks: RecurringTask[] = [];
+  tasks: RecurrentTask[] = [];
 
   constructor(private taskService: TaskService) {}
 

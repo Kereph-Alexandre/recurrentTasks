@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RecurringTask } from '../recurring-task';
+import { RecurrentTask } from '../recurring-task';
 
 @Component({
   selector: 'app-task',
@@ -10,5 +10,5 @@ import { RecurringTask } from '../recurring-task';
   styleUrl: './task.component.sass',
 })
 export class TaskComponent {
-  @Input() task!: RecurringTask;
+  @Input() task!: RecurrentTask;
 }
