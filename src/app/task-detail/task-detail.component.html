@@ -1,1 +1,17 @@
-<p>task-detail works!</p>
+<div *ngIf="task">
+  <h2>
+    {{ task.title }}
+  </h2>
+  <p>
+    {{ task.description }}
+  </p>
+  <p>
+    <span> Created on : {{ task.creationDate }} </span>
+    <span> Execture every {{ task.repeatDelay }} days</span>
+    <span> Next due on : {{ task.execDate }} </span>
+  </p>
+  <p>
+    Status :
+    {{ task.completed ? "Complete" : "To be done" }}
+  </p>
+</div>

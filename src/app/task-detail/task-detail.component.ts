@@ -1,13 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RecurrentTask } from '../recurring-task';
+import { ActivatedRoute } from '@angular/router';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-task-detail',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './task-detail.component.html',
-  styleUrl: './task-detail.component.sass'
+  styleUrl: './task-detail.component.sass',
 })
 export class TaskDetailComponent {
+  @Input() task?: RecurrentTask;
 
+  constructor(
+    private route: ActivatedRoute,
+    private taskservice: TaskService
+  ) {}
+
+  ngOnInit() {
+    this.getTask();
+  }
+
+  getTask(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.taskservice.getTaskById(id).subscribe((task) => (this.task = task));
+  }
 }
