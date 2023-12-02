@@ -16,8 +16,16 @@ export class TaskService {
 
   getTasks(): Observable<RecurringTask[]> {
     return this.http.get<RecurringTask[]>(this.tasksUrl).pipe(
-      tap((_) => console.log('fetched reccurring tasks')),
+      tap(() => console.log('fetched reccurring tasks')),
       catchError(this.handleError<RecurringTask[]>('getTasks', []))
+    );
+  }
+
+  getTaskById(id: number): Observable<RecurringTask> {
+    const url = `${this.tasksUrl}/${id}`;
+    return this.http.get<RecurringTask>(url).pipe(
+      tap(() => console.log(`fetched task with id: ${id}`)),
+      catchError(this.handleError<RecurringTask>(`getTaskById id=${id}`))
     );
   }
 
