@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { RecurringTask } from '../recurring-task';
 import { TaskComponent } from '../task/task.component';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-display-tasks',
@@ -10,14 +12,17 @@ import { TaskComponent } from '../task/task.component';
   styleUrl: './display-tasks.component.sass',
   imports: [CommonModule, TaskComponent],
 })
-export class DisplayTasksComponent {
-  exampleTask: RecurringTask = {
-    id: 1,
-    title: 'task number 1',
-    description: 'example of a recurring daily task',
-    repeatDelay: 1,
-    creationDate: new Date(20 / 11 / 23),
-    execDate: new Date(),
-    completed: false,
-  };
+export class DisplayTasksComponent implements OnInit {
+  tasks: RecurringTask[] = [];
+
+  constructor(private taskService: TaskService) {}
+
+  ngOnInit() {
+    this.getTasks();
+    console.log(this.tasks);
+  }
+
+  getTasks(): void {
+    this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
+  }
 }

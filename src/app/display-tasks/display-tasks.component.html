@@ -1,1 +1,6 @@
-<app-task [exampleTask]="exampleTask"></app-task>
+<div>
+  <h2>Display Tasks</h2>
+  <span *ngFor="let task of tasks">
+    <app-task [task]="task"></app-task>
+  </span>
+</div>
