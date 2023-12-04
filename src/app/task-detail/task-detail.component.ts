@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { RecurrentTask } from '../recurring-task';
-import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../task.service';
+
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-task-detail',
@@ -16,7 +19,8 @@ export class TaskDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private taskservice: TaskService
+    private taskservice: TaskService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -26,5 +30,9 @@ export class TaskDetailComponent {
   getTask(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.taskservice.getTaskById(id).subscribe((task) => (this.task = task));
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

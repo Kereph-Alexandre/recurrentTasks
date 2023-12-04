@@ -2,6 +2,7 @@
   <h2>
     {{ task.title }}
   </h2>
+
   <p>
     {{ task.description }}
   </p>
@@ -15,3 +16,4 @@
     {{ task.completed ? "Complete" : "To be done" }}
   </p>
 </div>
+<button (click)="goBack()">Return</button>
