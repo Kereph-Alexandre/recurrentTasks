@@ -1,1 +1,33 @@
-<textarea name="" id="" cols="30" rows="10"></textarea>
+<form>
+  <label for="title">titre</label>
+  <input type="text" [(ngModel)]="modelTask.title" name="title" id="title" />
+
+  <label for="">Description</label>
+  <textarea
+    name=""
+    id=""
+    cols="30"
+    rows="10"
+    [(ngModel)]="modelTask.description"
+    name="description"
+  >
+  </textarea>
+
+  <label for="">1ere Exec</label>
+  <input
+    type="date"
+    name=""
+    id=""
+    [(ngModel)]="modelTask.execDate"
+    name="execDate"
+  />
+
+  <label for="">récurrence</label>
+  <input
+    type="number"
+    name=""
+    id=""
+    [(ngModel)]="modelTask.repeatDelay"
+    name="repeatDelay"
+  />
+</form>
