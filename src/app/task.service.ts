@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { RecurringTask } from './recurring-task';
+import { RecurrentTask } from './recurring-task';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -14,18 +14,18 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  getTasks(): Observable<RecurringTask[]> {
-    return this.http.get<RecurringTask[]>(this.tasksUrl).pipe(
-      tap(() => console.log('fetched reccurring tasks')),
-      catchError(this.handleError<RecurringTask[]>('getTasks', []))
+  getTasks(): Observable<RecurrentTask[]> {
+    return this.http.get<RecurrentTask[]>(this.tasksUrl).pipe(
+      tap(() => console.log('fetched reccurrent tasks')),
+      catchError(this.handleError<RecurrentTask[]>('getTasks', []))
     );
   }
 
-  getTaskById(id: number): Observable<RecurringTask> {
+  getTaskById(id: number): Observable<RecurrentTask> {
     const url = `${this.tasksUrl}/${id}`;
-    return this.http.get<RecurringTask>(url).pipe(
+    return this.http.get<RecurrentTask>(url).pipe(
       tap(() => console.log(`fetched task with id: ${id}`)),
-      catchError(this.handleError<RecurringTask>(`getTaskById id=${id}`))
+      catchError(this.handleError<RecurrentTask>(`getTaskById id=${id}`))
     );
   }
 

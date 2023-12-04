@@ -1,4 +1,4 @@
-export interface RecurringTask {
+export interface RecurrentTask {
   id: number;
   title: string;
   description: string;
