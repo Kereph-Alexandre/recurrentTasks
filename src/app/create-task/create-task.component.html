@@ -1,6 +1,17 @@
-<form (submit)="onSubmit()">
-  <label for="title">titre</label>
-  <input type="text" [(ngModel)]="modelTask.title" name="title" id="title" />
+<form #taskForm="ngForm" (submit)="onSubmit()">
+  <label for="title">Title</label>
+  <input
+    type="text"
+    [(ngModel)]="modelTask.title"
+    name="title"
+    id="title"
+    required
+    #title="ngModel"
+  />
+
+  <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+    Name is required
+  </div>
 
   <label for="description">Description</label>
   <textarea
@@ -12,20 +23,22 @@
   >
   </textarea>
 
-  <label for="execDate">1ere Exec</label>
+  <label for="execDate">1st Deadline</label>
   <input
     type="date"
     id="execDate"
     [(ngModel)]="modelTask.execDate"
     name="execDate"
+    required
   />
 
-  <label for="repeatDelay">récurrence</label>
+  <label for="repeatDelay">Repeat every</label>
   <input
     type="number"
     id="repeatDelay"
     [(ngModel)]="modelTask.repeatDelay"
     name="repeatDelay"
+    required
   />
-  <button type="submit">Add Task</button>
+  <button [disabled]="!taskForm.form.valid" type="submit">Add Task</button>
 </form>

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RecurrentTask } from '../recurring-task';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+
+import { RecurrentTask } from '../recurring-task';
 import { TaskService } from '../task.service';
 
 @Component({
@@ -25,12 +25,35 @@ export class CreateTaskComponent {
   constructor(private taskService: TaskService) {}
 
   onSubmit() {
-    this.addTask(this.modelTask);
+    if (this.isTaskValid()) {
+      this.addTask(this.modelTask);
+    } else console.log('cannot add invalid task');
   }
 
   addTask(newTask: RecurrentTask) {
     this.taskService
       .addTask(newTask)
       .subscribe((task: any) => console.log(`added task n° ${task.id}`));
+  }
+
+  isTaskValid(): Boolean {
+    if (!this.modelTask.title.trim()) {
+      console.log(`invalid title ${this.modelTask.title}`);
+      return false;
+    }
+
+    if (
+      this.modelTask.execDate.toLocaleTimeString ==
+      new Date().toLocaleTimeString
+    ) {
+      console.log(`invalid date ${this.modelTask.execDate.toLocaleTimeString}`);
+      return false;
+    }
+    if (this.modelTask.repeatDelay == 0) {
+      console.log(`invalid repeat delay: ${this.modelTask.repeatDelay} days`);
+      return false;
+    }
+
+    return true;
   }
 }
