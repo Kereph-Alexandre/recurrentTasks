@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { RecurrentTask } from './recurring-task';
 
@@ -11,6 +11,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class TaskService {
   private tasksUrl = 'api/tasks';
+
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content Type': 'application/json' }),
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -27,6 +31,10 @@ export class TaskService {
       tap(() => console.log(`fetched task with id: ${id}`)),
       catchError(this.handleError<RecurrentTask>(`getTaskById id=${id}`))
     );
+  }
+
+  addTask(task: RecurrentTask): Observable<RecurrentTask> {
+    return this.http.post<RecurrentTask>(this.tasksUrl, task, this.httpOptions);
   }
 
   log(arg0: string): void {

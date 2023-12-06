@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RecurrentTask } from '../recurring-task';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-create-task',
@@ -13,7 +14,6 @@ import { JsonPipe } from '@angular/common';
 })
 export class CreateTaskComponent {
   modelTask: RecurrentTask = {
-    id: 0,
     title: '',
     description: '',
     repeatDelay: 0,
@@ -21,4 +21,16 @@ export class CreateTaskComponent {
     execDate: new Date(),
     completed: false,
   };
+
+  constructor(private taskService: TaskService) {}
+
+  onSubmit() {
+    this.addTask(this.modelTask);
+  }
+
+  addTask(newTask: RecurrentTask) {
+    this.taskService
+      .addTask(newTask)
+      .subscribe((task: any) => console.log(`added task n° ${task.id}`));
+  }
 }

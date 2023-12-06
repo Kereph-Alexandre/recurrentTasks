@@ -1,11 +1,10 @@
-<form>
+<form (submit)="onSubmit()">
   <label for="title">titre</label>
   <input type="text" [(ngModel)]="modelTask.title" name="title" id="title" />
 
-  <label for="">Description</label>
+  <label for="description">Description</label>
   <textarea
-    name=""
-    id=""
+    id="description"
     cols="30"
     rows="10"
     [(ngModel)]="modelTask.description"
@@ -13,21 +12,20 @@
   >
   </textarea>
 
-  <label for="">1ere Exec</label>
+  <label for="execDate">1ere Exec</label>
   <input
     type="date"
-    name=""
-    id=""
+    id="execDate"
     [(ngModel)]="modelTask.execDate"
     name="execDate"
   />
 
-  <label for="">récurrence</label>
+  <label for="repeatDelay">récurrence</label>
   <input
     type="number"
-    name=""
-    id=""
+    id="repeatDelay"
     [(ngModel)]="modelTask.repeatDelay"
     name="repeatDelay"
   />
+  <button type="submit">Add Task</button>
 </form>
