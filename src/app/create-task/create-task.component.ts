@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { RecurrentTask } from '../recurring-task';
 import { TaskService } from '../task.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-task',
@@ -22,12 +23,17 @@ export class CreateTaskComponent {
     completed: false,
   };
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private router: Router) {}
 
   onSubmit() {
     if (this.isTaskValid()) {
       this.addTask(this.modelTask);
+      this.redirect();
     } else console.log('cannot add invalid task');
+  }
+
+  private redirect() {
+    this.router.navigate(['/recurrentTasks']);
   }
 
   addTask(newTask: RecurrentTask) {
