@@ -23,6 +23,8 @@ export class CreateTaskComponent {
     completed: false,
   };
 
+  minDate: string = new Date().toISOString().split('T')[0];
+
   constructor(private taskService: TaskService, private router: Router) {}
 
   onSubmit(event: Event) {
