@@ -25,7 +25,10 @@ export class CreateTaskComponent {
 
   constructor(private taskService: TaskService, private router: Router) {}
 
-  onSubmit() {
+  onSubmit(event: Event) {
+    event.preventDefault();
+    console.log('Evenement : ', event.type);
+
     if (this.isTaskValid()) {
       this.addTask(this.modelTask);
       this.redirect();

@@ -1,4 +1,4 @@
-<form class="taskForm" #taskForm="ngForm" (submit)="onSubmit()">
+<form class="taskForm" #taskForm="ngForm" (submit)="onSubmit($event)">
   <div class="form-group">
     <label for="title">Title</label>
     <input
