@@ -1,5 +1,5 @@
 export interface RecurrentTask {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   repeatDelay: number;
