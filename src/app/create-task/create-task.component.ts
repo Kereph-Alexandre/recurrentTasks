@@ -29,22 +29,17 @@ export class CreateTaskComponent {
 
   onSubmit(event: Event) {
     event.preventDefault();
-    console.log('Evenement : ', event.type);
 
     if (this.isTaskValid()) {
-      this.addTask(this.modelTask);
-      this.redirect();
+      this.taskService.addTask(this.modelTask).subscribe(() => {
+        this.taskService.notifyTaskUpdated();
+        this.redirect();
+      });
     } else console.log('cannot add invalid task');
   }
 
   private redirect() {
     this.router.navigate(['/recurrentTasks']);
-  }
-
-  addTask(newTask: RecurrentTask) {
-    this.taskService
-      .addTask(newTask)
-      .subscribe((task: any) => console.log(`added task n° ${task.id}`));
   }
 
   isTaskValid(): Boolean {
