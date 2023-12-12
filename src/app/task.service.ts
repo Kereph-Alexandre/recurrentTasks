@@ -3,17 +3,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { RecurrentTask } from './recurring-task';
 
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  private tasksUrl = 'api/tasks';
+  private tasksUrl = 'http://localhost:3000/tasks';
+
+  //Change from InMemory To JsonServer
+  private taskUpdatedSubject = new Subject<void>();
+  taskUpdated$ = this.taskUpdatedSubject.asObservable();
 
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content Type': 'application/json' }),
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
   constructor(private http: HttpClient) {}
@@ -52,5 +56,9 @@ export class TaskService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  notifyTaskUpdated(): void {
+    this.taskUpdatedSubject.next();
   }
 }
