@@ -7,14 +7,17 @@
     {{ task.description }}
   </p>
   <p>
-    <span> Created on : {{ task.creationDate }} </span>
-    <span> Execture every {{ task.repeatDelay }} days</span>
-    <span> Next due on : {{ task.execDate }} </span>
+    <span> Created on : {{ task.creationDate | date }} </span>
+    <span> Execute every {{ task.repeatDelay }} days</span>
+    <span> Next due on : {{ task.execDate | date }} </span>
   </p>
   <p>
     Status :
     {{ task.completed ? "Complete" : "To be done" }}
   </p>
+  <button (click)="goBack()">Return</button>
+  <button (click)="deleteTask()">Delete</button>
+  <button (click)="completeTask()">
+    {{ task.completed! ? "Undo" : "Done" }}
+  </button>
 </div>
-<button (click)="goBack()">Return</button>
-<button (click)="deleteTask()">Delete</button>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RecurrentTask } from '../recurring-task';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../task.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-display-tasks',

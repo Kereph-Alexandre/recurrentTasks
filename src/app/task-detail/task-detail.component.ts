@@ -25,6 +25,7 @@ export class TaskDetailComponent {
 
   ngOnInit() {
     this.getTask();
+    this.taskService.taskUpdated$.subscribe(() => this.getTask());
   }
 
   getTask(): void {
@@ -38,11 +39,18 @@ export class TaskDetailComponent {
 
   deleteTask() {
     if (this.task?.id) {
-      console.log('task id valid', this.task.id);
       this.taskService
         .deleteTask(this.task?.id)
         .subscribe(() => this.taskService.notifyTaskUpdated());
       this.goBack();
     }
+  }
+
+  completeTask() {
+    this.taskService
+      .updateTask(this.task?.id!, { completed: !this.task?.completed })
+      .subscribe(() => {
+        this.taskService.notifyTaskUpdated();
+      });
   }
 }

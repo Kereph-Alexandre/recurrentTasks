@@ -1,9 +1,14 @@
-<main class="taskCard">
+<main
+  class="taskCard"
+  [ngClass]="{ completed: task.completed, 'not-completed': !task.completed }"
+>
   <input
     class="taskCompletion"
     type="checkbox"
     name="taskCompletion"
     id="taskCompletion"
+    [checked]="task.completed"
+    (click)="toggleCompletion(task)"
   />
   <section class="text">
     <a routerLink="/recurrentTasks/{{ task.id }}">

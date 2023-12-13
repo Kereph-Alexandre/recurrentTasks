@@ -47,6 +47,15 @@ export class TaskService {
     return this.http.delete<void>(taskUrl, this.httpOptions);
   }
 
+  updateTask(
+    id: number,
+    updatedTask: Partial<RecurrentTask>
+  ): Observable<void> {
+    const taskUrl = `${this.tasksUrl}/${id}`;
+
+    return this.http.patch<void>(taskUrl, updatedTask);
+  }
+
   notifyTaskUpdated(): void {
     this.taskUpdatedSubject.next();
   }
