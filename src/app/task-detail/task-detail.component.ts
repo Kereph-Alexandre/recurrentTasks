@@ -19,7 +19,7 @@ export class TaskDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private taskservice: TaskService,
+    private taskService: TaskService,
     private location: Location
   ) {}
 
@@ -29,10 +29,20 @@ export class TaskDetailComponent {
 
   getTask(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.taskservice.getTaskById(id).subscribe((task) => (this.task = task));
+    this.taskService.getTaskById(id).subscribe((task) => (this.task = task));
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  deleteTask() {
+    if (this.task?.id) {
+      console.log('task id valid', this.task.id);
+      this.taskService
+        .deleteTask(this.task?.id)
+        .subscribe(() => this.taskService.notifyTaskUpdated());
+      this.goBack();
+    }
   }
 }

@@ -10,6 +10,7 @@
       <h2>{{ task.title }}</h2>
     </a>
     <p>{{ task.description }}</p>
+    <button (click)="deleteTask()">Delete Task</button>
   </section>
   <aside class="deadline">{{ task.execDate | date : "d/M/yy" }}</aside>
 </main>

@@ -41,6 +41,16 @@ export class TaskService {
     return this.http.post<RecurrentTask>(this.tasksUrl, task, this.httpOptions);
   }
 
+  deleteTask(id: number): Observable<void> {
+    const taskUrl = `${this.tasksUrl}/${id}`;
+
+    return this.http.delete<void>(taskUrl, this.httpOptions);
+  }
+
+  notifyTaskUpdated(): void {
+    this.taskUpdatedSubject.next();
+  }
+
   log(arg0: string): void {
     throw new Error('Method not implemented.');
   }
@@ -56,9 +66,5 @@ export class TaskService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
-
-  notifyTaskUpdated(): void {
-    this.taskUpdatedSubject.next();
   }
 }
