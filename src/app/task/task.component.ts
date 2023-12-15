@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecurrentTask } from '../recurring-task';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TaskService } from '../task.service';
 import { FormsModule } from '@angular/forms';
 
@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class TaskComponent {
   @Input() task!: RecurrentTask;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private router: Router) {}
 
   deleteTask(): void {
     console.log('try to delete task with id ', this.task.id);
@@ -33,5 +33,9 @@ export class TaskComponent {
     this.taskService.updateTask(task.id!, updatedTask).subscribe(() => {
       this.taskService.notifyTaskUpdated();
     });
+  }
+
+  navigateToDetails(isEditing: boolean): void {
+    this.router.navigate([`/recurrentTasks/${this.task.id}`, { isEditing }]);
   }
 }

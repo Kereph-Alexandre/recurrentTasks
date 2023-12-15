@@ -10,12 +10,14 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-task-detail',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.sass',
+  imports: [CommonModule],
 })
 export class TaskDetailComponent {
   @Input() task?: RecurrentTask;
+
+  isEditing: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +28,9 @@ export class TaskDetailComponent {
   ngOnInit() {
     this.getTask();
     this.taskService.taskUpdated$.subscribe(() => this.getTask());
+    this.route.paramMap.subscribe(
+      (params) => (this.isEditing = params.get('isEditing') === 'true')
+    );
   }
 
   getTask(): void {

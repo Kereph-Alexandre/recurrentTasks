@@ -1,11 +1,26 @@
 <div *ngIf="task">
-  <h2>
-    {{ task.title }}
-  </h2>
+  <div *ngIf="this.isEditing; else notEditing">
+    <label for="taskTitle">Title</label>
+    <input type="text" name="taskTitle" [value]="task.title" />
 
-  <p>
-    {{ task.description }}
-  </p>
+    <label for="taskDescription">Description</label>
+    <textarea
+      name="taskDescription"
+      id=""
+      cols="30"
+      rows="10"
+      [value]="task.description"
+    ></textarea>
+  </div>
+  <ng-template #notEditing>
+    <h2>
+      {{ task.title }}
+    </h2>
+    <p>
+      {{ task.description }}
+    </p>
+  </ng-template>
+
   <p>
     <span> Created on : {{ task.creationDate | date }} </span>
     <span> Execute every {{ task.repeatDelay }} days</span>
@@ -18,6 +33,6 @@
   <button (click)="goBack()">Return</button>
   <button (click)="deleteTask()">Delete</button>
   <button (click)="completeTask()">
-    {{ task.completed! ? "Undo" : "Done" }}
+    {{ task.completed! ? "Not Done" : "Done" }}
   </button>
 </div>

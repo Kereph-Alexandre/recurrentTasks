@@ -5,6 +5,7 @@ import { RecurrentTask } from '../recurring-task';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../task.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-tasks',
