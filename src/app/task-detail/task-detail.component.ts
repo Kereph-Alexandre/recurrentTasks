@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecurrentTask } from '../recurring-task';
@@ -7,15 +7,17 @@ import { TaskService } from '../task.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-task-detail',
   standalone: true,
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.sass',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
 })
 export class TaskDetailComponent {
-  @Input() task?: RecurrentTask;
+  @Input() task!: RecurrentTask;
 
   isEditing: Boolean = false;
 
@@ -57,5 +59,17 @@ export class TaskDetailComponent {
       .subscribe(() => {
         this.taskService.notifyTaskUpdated();
       });
+  }
+
+  editTask() {
+    this.isEditing = true;
+  }
+
+  confirmTaskEdit(): void {
+    if (this.task?.id) {
+      this.taskService.updateTask(this.task.id, this.task).subscribe(() => {
+        this.taskService.notifyTaskUpdated(), this.goBack();
+      });
+    }
   }
 }

@@ -1,17 +1,23 @@
 <div *ngIf="task">
   <div *ngIf="this.isEditing; else notEditing">
     <label for="taskTitle">Title</label>
-    <input type="text" name="taskTitle" [value]="task.title" />
+    <input type="text" name="taskTitle" [(ngModel)]="task.title" />
 
     <label for="taskDescription">Description</label>
     <textarea
       name="taskDescription"
       id=""
-      cols="30"
-      rows="10"
-      [value]="task.description"
+      [(ngModel)]="task.description"
     ></textarea>
+
+    <span> Created on : {{ task.creationDate | date }} </span>
+
+    <label for="taskRepeat">Execute every :</label>
+    <input type="number" [(ngModel)]="task.repeatDelay" />
+
+    <button (click)="confirmTaskEdit()">Done Editing</button>
   </div>
+
   <ng-template #notEditing>
     <h2>
       {{ task.title }}
@@ -19,13 +25,14 @@
     <p>
       {{ task.description }}
     </p>
+    <p>
+      <span> Created on : {{ task.creationDate | date }} </span>
+      <span> Execute every {{ task.repeatDelay }} days</span>
+      <span> Next due on : {{ task.execDate | date }} </span>
+    </p>
+    <button (click)="editTask()">Modify</button>
   </ng-template>
 
-  <p>
-    <span> Created on : {{ task.creationDate | date }} </span>
-    <span> Execute every {{ task.repeatDelay }} days</span>
-    <span> Next due on : {{ task.execDate | date }} </span>
-  </p>
   <p>
     Status :
     {{ task.completed ? "Complete" : "To be done" }}
