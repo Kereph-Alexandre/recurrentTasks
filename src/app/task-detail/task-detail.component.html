@@ -1,23 +1,42 @@
 <div *ngIf="task">
-  <div *ngIf="this.isEditing; else notEditing">
-    <label for="taskTitle">Title</label>
-    <input type="text" name="taskTitle" [(ngModel)]="task.title" />
+  <!-- If in edition mode, display inputs and areas -->
+  <div class="taskEditingForm" *ngIf="this.isEditing; else notEditing">
+    <!-- task title text input -->
+    <div class="form-group">
+      <label for="taskTitle">Title</label>
+      <input type="text" name="taskTitle" [(ngModel)]="task.title" />
+    </div>
 
-    <label for="taskDescription">Description</label>
-    <textarea
-      name="taskDescription"
-      id=""
-      [(ngModel)]="task.description"
-    ></textarea>
+    <!-- task description text area -->
+    <div class="form-group">
+      <label for="taskDescription">Description</label>
+      <textarea
+        name="taskDescription"
+        id=""
+        [(ngModel)]="task.description"
+      ></textarea>
+    </div>
 
-    <span> Created on : {{ task.creationDate | date }} </span>
+    <!-- display creation date, no change allowed -->
+    <label> Created on : {{ task.creationDate | date }} </label>
 
-    <label for="taskRepeat">Execute every :</label>
-    <input type="number" [(ngModel)]="task.repeatDelay" />
+    <!-- task recurrence number input -->
+    <div class="form-group">
+      <label for="taskRepeat">Execute every :</label>
+      <input type="number" [(ngModel)]="task.repeatDelay" />
+    </div>
 
-    <button (click)="confirmTaskEdit()">Done Editing</button>
+    <!-- confirm button -->
+    <button (click)="confirmTaskEdit()">Confirm</button>
+
+    <button (click)="goBack()">Return</button>
+    <button (click)="deleteTask()">Delete</button>
+    <button (click)="completeTask()">
+      {{ task.completed! ? "Not Complete" : "Complete" }}
+    </button>
   </div>
 
+  <!-- When not editing, display data -->
   <ng-template #notEditing>
     <h2>
       {{ task.title }}
@@ -31,15 +50,16 @@
       <span> Next due on : {{ task.execDate | date }} </span>
     </p>
     <button (click)="editTask()">Modify</button>
+
+    <button (click)="goBack()">Return</button>
+    <button (click)="deleteTask()">Delete</button>
+    <button (click)="completeTask()">
+      {{ task.completed! ? "Not Complete" : "Complete" }}
+    </button>
   </ng-template>
 
   <p>
     Status :
-    {{ task.completed ? "Complete" : "To be done" }}
+    {{ task.completed ? "Done" : "To Do" }}
   </p>
-  <button (click)="goBack()">Return</button>
-  <button (click)="deleteTask()">Delete</button>
-  <button (click)="completeTask()">
-    {{ task.completed! ? "Not Done" : "Done" }}
-  </button>
 </div>
