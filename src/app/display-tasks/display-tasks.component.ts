@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RecurrentTask } from '../recurring-task';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../task.service';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-tasks',
@@ -17,14 +15,54 @@ import { Router } from '@angular/router';
 export class DisplayTasksComponent implements OnInit {
   tasks: RecurrentTask[] = [];
 
+  todaysTasks: RecurrentTask[] = [];
+  futureTasks: RecurrentTask[] = [];
+
   constructor(private taskService: TaskService) {}
 
   ngOnInit() {
     this.getTasks();
-    this.taskService.taskUpdated$.subscribe(() => this.getTasks());
   }
 
   getTasks(): void {
-    this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks;
+      this.sortTasksByDate();
+      this.filterTodaysTasks();
+    });
+  }
+
+  sortTasksByDate(): void {
+    this.tasks = this.tasks.sort((oldestDate, newestDate) => {
+      const dateOldest = new Date(oldestDate.execDate);
+      const dateNewest = new Date(newestDate.execDate);
+      return dateOldest.getTime() - dateNewest.getTime();
+    });
+  }
+
+  filterTodaysTasks(): void {
+    //Get today's date
+    const today = new Date();
+
+    //Get all tasks
+    this.todaysTasks = this.tasks.filter((task) => {
+      //Get task next deadline and compare it to today's date
+      const taskDate = new Date(task.execDate);
+      return (
+        taskDate.getDate() === today.getDate() &&
+        taskDate.getMonth() === today.getMonth() &&
+        taskDate.getFullYear() === today.getFullYear()
+      );
+    });
+
+    this.futureTasks = this.tasks.filter((task) => {
+      //Get task next deadline and compare it to today's date
+      const taskDate = new Date(task.execDate);
+      return (
+        taskDate.getDate() !== today.getDate() ||
+        taskDate.getMonth() !== today.getMonth() ||
+        taskDate.getFullYear() !== today.getFullYear()
+      );
+    });
   }
 }
