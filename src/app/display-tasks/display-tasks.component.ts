@@ -22,6 +22,7 @@ export class DisplayTasksComponent implements OnInit {
 
   ngOnInit() {
     this.getTasks();
+    this.taskService.taskUpdated$.subscribe(() => this.getTasks());
   }
 
   getTasks(): void {
