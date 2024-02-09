@@ -44,7 +44,7 @@ export class TaskDetailComponent {
     this.location.back();
   }
 
-  deleteTask() {
+  deleteTask(): void {
     if (this.task?.id) {
       this.taskService
         .deleteTask(this.task?.id)
@@ -53,15 +53,30 @@ export class TaskDetailComponent {
     }
   }
 
-  completeTask() {
+  completeTask(): void {
+    const date = this.determineNextDate();
+
     this.taskService
-      .updateTask(this.task?.id!, { completed: !this.task?.completed })
+      .updateTask(this.task?.id!, {
+        completed: true,
+        execDate: date,
+      })
       .subscribe(() => {
         this.taskService.notifyTaskUpdated();
       });
   }
 
-  editTask() {
+  determineNextDate(): Date {
+    const today = new Date();
+
+    const nextExecDate = new Date(
+      today.getTime() + this.task.repeatDelay * 24 * 60 * 60 * 1000
+    );
+
+    return nextExecDate;
+  }
+
+  editTask(): void {
     this.isEditing = true;
   }
 
