@@ -7,6 +7,17 @@ import { RecurrentTask } from './recurring-task';
 export class TaskOperationsService {
   constructor() {}
 
+  complete(task: RecurrentTask): RecurrentTask {
+    task.completed = true;
+
+    return task;
+  }
+
+  regress(task: RecurrentTask): RecurrentTask {
+    task.completed = false;
+    return task;
+  }
+
   determineNextDate(task: RecurrentTask): RecurrentTask {
     const today = new Date();
 

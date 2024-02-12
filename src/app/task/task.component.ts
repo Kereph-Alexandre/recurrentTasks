@@ -32,14 +32,17 @@ export class TaskComponent {
     }
   }
 
+  // on clicking the validation checkbox, complete the task or regress it to uncomplete
   toggleCompletion(task: RecurrentTask): void {
     if (!task.completed) {
       this.completeTask(task);
     } else this.regressTask(task);
   }
 
+  // mark task as incomplete, (if it can still be displayed on the list)
   regressTask(task: RecurrentTask) {
-    task.completed = false;
+    this.taskOperationsService.regress(task);
+    // any need to also revert to last completion deadline ?
 
     this.taskService
       .updateTask(task.id!, task)
@@ -47,9 +50,9 @@ export class TaskComponent {
   }
 
   completeTask(task: RecurrentTask) {
+    this.taskOperationsService.complete(task);
     this.taskOperationsService.determineNextDate(task);
 
-    task.completed = true;
     this.taskService
       .updateTask(task.id!, task)
       .subscribe(() => this.taskService.notifyTaskUpdated());
