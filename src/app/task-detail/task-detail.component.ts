@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
+import { TaskOperationsService } from '../task-operations.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -24,6 +25,7 @@ export class TaskDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskService,
+    private taskOperationService: TaskOperationsService,
     private location: Location
   ) {}
 
@@ -53,27 +55,28 @@ export class TaskDetailComponent {
     }
   }
 
-  completeTask(): void {
-    const date = this.determineNextDate();
-
-    this.taskService
-      .updateTask(this.task?.id!, {
-        completed: true,
-        execDate: date,
-      })
-      .subscribe(() => {
-        this.taskService.notifyTaskUpdated();
-      });
+  toggleCompletion(task: RecurrentTask): void {
+    if (!task.completed) {
+      this.completeTask(task);
+    } else this.regressTask(task);
   }
 
-  determineNextDate(): Date {
-    const today = new Date();
+  regressTask(task: RecurrentTask): void {
+    if (task.completed) {
+      this.taskOperationService.regress(task);
+      this.taskService
+        .updateTask(task.id!, task)
+        .subscribe(() => this.taskService.notifyTaskUpdated());
+    }
+  }
 
-    const nextExecDate = new Date(
-      today.getTime() + this.task.repeatDelay * 24 * 60 * 60 * 1000
-    );
+  completeTask(task: RecurrentTask): void {
+    this.taskOperationService.determineNextDate(task);
+    this.taskOperationService.complete(task);
 
-    return nextExecDate;
+    this.taskService.updateTask(this.task?.id!, task).subscribe(() => {
+      this.taskService.notifyTaskUpdated();
+    });
   }
 
   editTask(): void {
