@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { RecurrentTask } from '../recurring-task';
-import { TaskService } from '../task.service';
+import { RecurrentTask } from '../interface/recurring-task';
+import { TaskService } from '../service/task.service';
 import { Router } from '@angular/router';
 
 @Component({

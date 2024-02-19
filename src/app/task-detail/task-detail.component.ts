@@ -1,14 +1,14 @@
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RecurrentTask } from '../recurring-task';
-import { TaskService } from '../task.service';
+import { RecurrentTask } from '../interface/recurring-task';
+import { TaskService } from '../service/task.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TaskOperationsService } from '../task-operations.service';
+import { TaskOperationsService } from '../service/task-operations.service';
 
 @Component({
   selector: 'app-task-detail',

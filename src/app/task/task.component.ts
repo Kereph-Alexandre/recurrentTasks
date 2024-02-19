@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RecurrentTask } from '../recurring-task';
+import { RecurrentTask } from '../interface/recurring-task';
 import { Router, RouterLink } from '@angular/router';
-import { TaskService } from '../task.service';
+import { TaskService } from '../service/task.service';
 import { FormsModule } from '@angular/forms';
-import { TaskOperationsService } from '../task-operations.service';
+import { TaskOperationsService } from '../service/task-operations.service';
 
 @Component({
   selector: 'app-task',

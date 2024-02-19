@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RecurrentTask } from '../recurring-task';
+import { RecurrentTask } from '../interface/recurring-task';
 import { TaskComponent } from '../task/task.component';
-import { TaskService } from '../task.service';
+import { TaskService } from '../service/task.service';
+import { TaskOperationsService } from '../service/task-operations.service';
 
 @Component({
   selector: 'app-display-tasks',
@@ -18,7 +19,10 @@ export class DisplayTasksComponent implements OnInit {
   todaysTasks: RecurrentTask[] = [];
   futureTasks: RecurrentTask[] = [];
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private taskOperationsService: TaskOperationsService
+  ) {}
 
   ngOnInit() {
     this.getTasks();
