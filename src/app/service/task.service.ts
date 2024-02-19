@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { RecurrentTask } from './recurring-task';
+import { RecurrentTask } from '../interface/recurring-task';
 
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject, forkJoin, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
