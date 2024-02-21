@@ -1,0 +1,65 @@
+<div *ngIf="task">
+  <!-- If in edition mode, display inputs and areas -->
+  <div class="taskEditingForm" *ngIf="this.isEditing; else notEditing">
+    <!-- task title text input -->
+    <div class="form-group">
+      <label for="taskTitle">Title</label>
+      <input type="text" name="taskTitle" [(ngModel)]="task.title" />
+    </div>
+
+    <!-- task description text area -->
+    <div class="form-group">
+      <label for="taskDescription">Description</label>
+      <textarea
+        name="taskDescription"
+        id=""
+        [(ngModel)]="task.description"
+      ></textarea>
+    </div>
+
+    <!-- display creation date, no change allowed -->
+    <label> Created on : {{ task.creationDate | date }} </label>
+
+    <!-- task recurrence number input -->
+    <div class="form-group">
+      <label for="taskRepeat">Execute every :</label>
+      <input type="number" [(ngModel)]="task.repeatDelay" />
+    </div>
+
+    <!-- confirm button -->
+    <button (click)="confirmTaskEdit()">Confirm</button>
+
+    <button (click)="goBack()">Return</button>
+    <button (click)="deleteTask()">Delete</button>
+    <button (click)="toggleCompletion(task)">
+      {{ task.completed! ? "Not Complete" : "Complete" }}
+    </button>
+  </div>
+
+  <!-- When not editing, display data -->
+  <ng-template #notEditing>
+    <h2>
+      {{ task.title }}
+    </h2>
+    <p>
+      {{ task.description }}
+    </p>
+    <p>
+      <span> Created on : {{ task.creationDate | date }} </span>
+      <span> Execute every {{ task.repeatDelay }} days</span>
+      <span> Next due on : {{ task.execDate | date }} </span>
+    </p>
+    <button (click)="editTask()">Modify</button>
+
+    <button (click)="goBack()">Return</button>
+    <button (click)="deleteTask()">Delete</button>
+    <button (click)="toggleCompletion(task)">
+      {{ task.completed! ? "Not Complete" : "Complete" }}
+    </button>
+  </ng-template>
+
+  <p>
+    Status :
+    {{ task.completed ? "Done" : "To Do" }}
+  </p>
+</div>

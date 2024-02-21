@@ -1,0 +1,53 @@
+<form class="taskForm" #taskForm="ngForm" (submit)="onSubmit($event)">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      type="text"
+      [(ngModel)]="modelTask.title"
+      name="title"
+      id="title"
+      required
+      #title="ngModel"
+    />
+
+    <div [hidden]="title.valid || !title.touched" class="alert alert-danger">
+      New task requires a title
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      [(ngModel)]="modelTask.description"
+      name="description"
+    >
+    </textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="execDate">1st Deadline : </label>
+    <input
+      type="date"
+      id="execDate"
+      [(ngModel)]="modelTask.execDate"
+      name="execDate"
+      [min]="minDate"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="repeatDelay">Repeat every (in days) </label>
+    <input
+      type="number"
+      id="repeatDelay"
+      [(ngModel)]="modelTask.repeatDelay"
+      name="repeatDelay"
+      min="1"
+      max="365"
+      required
+    />
+  </div>
+  <button [disabled]="!taskForm.form.valid" type="submit">Add Task</button>
+</form>

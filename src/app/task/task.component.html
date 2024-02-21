@@ -1,0 +1,22 @@
+<main
+  class="taskCard"
+  [ngClass]="{ completed: task.completed, 'not-completed': !task.completed }"
+>
+  <input
+    class="taskCompletion"
+    type="checkbox"
+    name="taskCompletion"
+    id="taskCompletion"
+    [checked]="task.completed"
+    (click)="toggleCompletion(task)"
+  />
+  <section class="text">
+    <a routerLink="/recurrentTasks/{{ task.id }}">
+      <h2>{{ task.title }}</h2>
+    </a>
+    <p>{{ task.description }}</p>
+    <button (click)="deleteTask()">Delete Task</button>
+    <button (click)="navigateToDetails(true)">Edit</button>
+  </section>
+  <aside class="deadline">{{ task.execDate | date : "d/M/yy" }}</aside>
+</main>

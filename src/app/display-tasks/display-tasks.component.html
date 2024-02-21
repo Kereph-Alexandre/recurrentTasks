@@ -1,0 +1,15 @@
+<div>
+  <div id="todaysTasks">
+    <h2>Today's Tasks</h2>
+    <span *ngFor="let task of todaysTasks">
+      <app-task [task]="task"></app-task>
+    </span>
+  </div>
+
+  <div id="futureTasks">
+    <h2>Coming Next !</h2>
+    <span *ngFor="let task of futureTasks">
+      <app-task [task]="task"></app-task>
+    </span>
+  </div>
+</div>
