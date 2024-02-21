@@ -1,13 +1,14 @@
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RecurrentTask } from '../recurring-task';
-import { TaskService } from '../task.service';
+import { RecurrentTask } from '../interface/recurring-task';
+import { TaskService } from '../service/task.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
+import { TaskOperationsService } from '../service/task-operations.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -24,6 +25,7 @@ export class TaskDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskService,
+    private taskOperationService: TaskOperationsService,
     private location: Location
   ) {}
 
@@ -44,7 +46,7 @@ export class TaskDetailComponent {
     this.location.back();
   }
 
-  deleteTask() {
+  deleteTask(): void {
     if (this.task?.id) {
       this.taskService
         .deleteTask(this.task?.id)
@@ -53,15 +55,31 @@ export class TaskDetailComponent {
     }
   }
 
-  completeTask() {
-    this.taskService
-      .updateTask(this.task?.id!, { completed: !this.task?.completed })
-      .subscribe(() => {
-        this.taskService.notifyTaskUpdated();
-      });
+  toggleCompletion(task: RecurrentTask): void {
+    if (!task.completed) {
+      this.completeTask(task);
+    } else this.regressTask(task);
   }
 
-  editTask() {
+  regressTask(task: RecurrentTask): void {
+    if (task.completed) {
+      this.taskOperationService.regress(task);
+      this.taskService
+        .updateTask(task.id!, task)
+        .subscribe(() => this.taskService.notifyTaskUpdated());
+    }
+  }
+
+  completeTask(task: RecurrentTask): void {
+    this.taskOperationService.determineNextDate(task);
+    this.taskOperationService.complete(task);
+
+    this.taskService.updateTask(this.task?.id!, task).subscribe(() => {
+      this.taskService.notifyTaskUpdated();
+    });
+  }
+
+  editTask(): void {
     this.isEditing = true;
   }
 
