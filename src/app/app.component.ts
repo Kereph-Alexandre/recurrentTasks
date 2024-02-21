@@ -25,6 +25,7 @@ export class AppComponent {
     this.taskService.getTasks().subscribe((tasks) => {
       console.log('got list of tasks');
       this.taskOperationsService.updateTaskDates(tasks);
+      this.taskOperationsService.updateTaskStatus(tasks);
     });
   }
 }

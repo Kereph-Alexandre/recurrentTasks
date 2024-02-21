@@ -13,7 +13,31 @@ export class TaskOperationsService {
 
   ngOnInit() {}
 
-  updateTaskStatus(tasks: RecurrentTask[]): void {}
+  updateTaskStatus(tasks: RecurrentTask[]): RecurrentTask[] {
+    //get current date
+    const currentDate = new Date();
+
+    //filter tasks with next deadline set to today
+    const todaysTasks: RecurrentTask[] = tasks.filter((task) => {
+      const taskDate = new Date(task.execDate);
+
+      return (
+        taskDate.getFullYear() === currentDate.getFullYear() &&
+        taskDate.getMonth() === currentDate.getMonth() &&
+        taskDate.getDate() === currentDate.getDate()
+      );
+    });
+
+    //mark tasks as incomplete and update them
+    todaysTasks.forEach((task) => {
+      this.regress(task);
+      this.taskService
+        .updateTask(task.id!, task)
+        .subscribe(() => this.taskService.notifyTaskUpdated());
+    });
+
+    return tasks;
+  }
 
   updateTaskDates(tasks: RecurrentTask[]): RecurrentTask[] {
     //get current date
