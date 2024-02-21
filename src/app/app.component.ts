@@ -24,7 +24,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.taskService.getTasks().subscribe((tasks) => {
       console.log('got list of tasks');
-      this.taskOperationsService.updateTasksDates(tasks);
+      this.taskOperationsService.updateTaskDates(tasks);
     });
   }
 }

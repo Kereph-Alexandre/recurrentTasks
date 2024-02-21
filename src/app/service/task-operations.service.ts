@@ -13,7 +13,9 @@ export class TaskOperationsService {
 
   ngOnInit() {}
 
-  updateTasksDates(tasks: RecurrentTask[]): RecurrentTask[] {
+  updateTaskStatus(tasks: RecurrentTask[]): void {}
+
+  updateTaskDates(tasks: RecurrentTask[]): RecurrentTask[] {
     //get current date
     const currentDate = new Date();
 
@@ -22,15 +24,16 @@ export class TaskOperationsService {
       const taskDate = new Date(task.execDate);
       return taskDate.getTime() < currentDate.getTime();
     });
+
+    //foreach task on the list,
+    //update the date to current one
+    //call for taskService UpdateTask()
     pastDueTasks.forEach((task) => {
       task.execDate = currentDate;
       this.taskService
         .updateTask(task.id!, task)
         .subscribe(() => this.taskService.notifyTaskUpdated());
     });
-
-    //update the date to current one
-    //call for taskService UpdateTask()
 
     return tasks;
   }
