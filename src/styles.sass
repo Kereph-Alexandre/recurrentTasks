@@ -1,76 +1,92 @@
 
+/* Global variables*/
+$primary-color: #264d73
+$complementary-color: #00c1b4
+$accent-color: #fff7d6
+
+$clear-color: #ffffff
+$dark-color: #000000
+
+$font-family: 'Arial', sans-serif
+$font-alternate: 'Cambria', serif
+
+$disabled-button-bg: #eee
+$disabled-button-color: #aaa
+
 /* Global Styles */
 *
-    font-family: Arial, Helvetica, sans-serif
+    font-family: $font-family
 
-h1
-    color: #264d73
-    font-size: 2.5rem
-
-h2,
-h3
-    color: #444
+h1,h2
+    color: $primary-color
     font-weight: lighter
 
-h3
-    font-size: 1.3rem
+h1
+    font-variant: small-caps
+    font-size: 2.5em
 
 body
-    padding: 0.5rem
-    max-width: 1000px
+    padding: 2em
+    max-width: 75vw
     margin: auto
 
-@media (min-width: 600px)
-body
-    padding: 2rem
-
-body,
 input[text]
-    color: #333
-    font-family: Cambria, Georgia, serif
+    color: $dark-color
+    font-family: $font-alternate
 
 a
     cursor: pointer
 
 button
-    background-color: #eee
+    background-color: $accent-color
+    color: $dark-color
+
     border: none
     border-radius: 4px
+
     cursor: pointer
-    color: black
+
     font-size: 1em
     padding: 1em
-    margin: 1em 1em 1em 0
+    margin: 1em
 
 button:hover
-    background-color: black
-    color: white
+    background-color: $complementary-color
+    color: $accent-color
 
 button:disabled
-    background-color: #eee
-    color: #aaa
+    background-color: $disabled-button-bg
+    color: $disabled-button-color
     cursor: auto
 
 /* Navigation link styles */
+nav
+    display: flex
+    gap: 1em
 nav a 
-    padding: 0.5em
+    padding: 0.5em 1em
     text-decoration: none
-    margin-right: 10px
-    margin-top: 10px
     display: inline-block
-    background-color: #264d73
-    color: white
+
+    border-radius: 4px
+    background-color: $primary-color
+    color: $clear-color
 
 nav a:hover 
-    color: black
-    background-color: #b6a563
+    color: $accent-color
+    background-color: $complementary-color
 
 nav a.active 
-    background-color: black
-    color: white
+    background-color: $dark-color
+    color: $clear-color
 
 hr
     margin: 1.5rem 0
+    border: 2px solid
+    border-radius: 4px
+    color: $complementary-color
+
+/* Inputs */
 
 input[type="text"]
     width: 100%
