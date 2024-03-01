@@ -1,8 +1,7 @@
 @import ../../styles
 
 .taskCard
-    margin: 2em
-    border: solid 1px black
+    margin: 2em 0
     border-radius: 15px
     display: flex
 
@@ -14,11 +13,25 @@
         flex: 1 1 auto //Want the text to adapt in size
 
     .deadline, .taskCompletion
-        flex: 0 0 auto
-        margin: auto
+        margin: auto 2em
 
-.taskCard:hover
-    box-shadow: 5px 5px 5px grey
+    a
+        text-decoration: none
+
+    &:hover
+        cursor: pointer
 
 .completed
-    background-color: lightgreen
+    background-color: $complementary-color
+    box-shadow: 2px 2px 2px $primary-color
+
+    &:hover
+        box-shadow: 5px 5px 5px $primary-color
+    h2
+        color: $accent-color
+
+.not-completed
+    box-shadow: 2px 2px 2px $complementary-color
+
+    &:hover
+        box-shadow: 5px 5px 5px $complementary-color
