@@ -10,8 +10,18 @@ $dark-color: #000000
 $font-family: 'Arial', sans-serif
 $font-alternate: 'Cambria', serif
 
+// Validation variables
 $disabled-button-bg: #eee
 $disabled-button-color: #aaa
+
+$invalid-field-color: #a94442
+$valid-field-color: #42A948
+$required-field-color: #e0c123
+
+// Alert variables
+$alert-primary-color: #f2dede
+$alert-secondary-color: #ebccd1
+$alert-text-color: #a94442
 
 /* Global Styles */
 *
@@ -91,3 +101,27 @@ hr
 input[type="text"]
     width: 100%
     padding: 0.5rem
+
+/* Alerts */
+.alert
+    padding: 15px
+    margin-bottom: 20px
+    border: 1px solid transparent
+    border-radius: 4px
+
+.alert-danger
+    background-color: $alert-primary-color
+    border-color: $alert-secondary-color
+    color: $alert-text-color
+
+// Validations
+.ng-valid[required], .ng-valid.required
+    input[text]
+        border-left: 5px solid $valid-field-color
+
+.ng-invalid:not(form)
+    border-left: 5px solid $alert-text-color
+
+.ng-untouched[required], .ng-untouched.required
+    border-left: 5px solid $required-field-color
+// 

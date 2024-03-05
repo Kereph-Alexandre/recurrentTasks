@@ -1,13 +1,4 @@
-.alert
-    padding: 15px
-    margin-bottom: 20px
-    border: 1px solid transparent
-    border-radius: 4px
-
-.alert-danger
-    background-color: #f2dede
-    border-color: #ebccd1
-    color: #a94442
+@import ../../styles
 
 .taskForm
     width: 100%
@@ -32,12 +23,31 @@ textarea
     height: 100px
     resize: none
 
-.ng-valid[required], .ng-valid.required
-    input[text]
-        border-left: 5px solid #42A948
+label
+    color: $primary-color
+    font-size: 1.5em
+    font-family: $font-family
 
-.ng-invalid:not(form)
-    border-left: 5px solid #a94442
+input,
+textarea
+    border: 1px solid $complementary-color
+    background-color: $accent-color
 
-.ng-untouched[required], .ng-untouched.required
-    border-left: 5px solid #e0c123
+    margin-top: 0.5em
+    padding: 5px
+
+    box-sizing: border-box
+    font-size: 1em
+    font-family: $font-alternate
+
+input
+    &[type="text"]
+        width: 100%
+
+    &[type="number"]
+        width: 60px
+
+textarea
+    width: 100%
+    height: 100px
+    resize: none
