@@ -1,15 +1,29 @@
+@import ../../styles
+
+// Editing Mode
+label
+    color: $primary-color
+    font-size: 1.5em
+    font-family: $font-family
+
 input,
 textarea
-    border: 1px solid #ccc
+    border: 1px solid $complementary-color
+    background-color: $accent-color
+
+    margin-top: 0.5em
     padding: 5px
+
     box-sizing: border-box
     font-size: 1em
+    font-family: $font-alternate
 
-input[type="text"]
-    width: 100%
+input
+    &[type="text"]
+        width: 100%
 
-input[type="number"]
-    width: 60px
+    &[type="number"]
+        width: 60px
 
 textarea
     width: 100%
@@ -21,3 +35,21 @@ textarea
 
     .form-group
         margin: 1.5em 0
+
+// Non-editing Mode
+.taskCardBody
+    // border: 2px solid $primary-color
+    padding: 1em
+    box-shadow: 2px 2px 5px $complementary-color
+
+    border-radius: 2em
+
+// Global
+button:first-of-type
+    margin-left: 0
+
+.taskMetaData
+    display: flex
+    flex-direction: column
+    gap: 0.5em
+    margin-top: 1em

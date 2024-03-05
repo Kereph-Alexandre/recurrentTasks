@@ -18,14 +18,24 @@
     </div>
 
     <!-- display creation date, no change allowed -->
-    <label> Created on : {{ task.creationDate | date }} </label>
+    <p>
+      <label> Created on : </label>
+      <span>
+        {{ task.creationDate | date }}
+      </span>
+    </p>
 
     <!-- task recurrence number input -->
     <div class="form-group">
-      <label for="taskRepeat">Execute every :</label>
+      <label for="taskRepeat">Execute every : </label>
       <input type="number" [(ngModel)]="task.repeatDelay" />
     </div>
 
+    <!-- task status -->
+    <p>
+      Status :
+      {{ task.completed ? "Done" : "To Do" }}
+    </p>
     <!-- confirm button -->
     <button (click)="confirmTaskEdit()">Confirm</button>
 
@@ -38,28 +48,29 @@
 
   <!-- When not editing, display data -->
   <ng-template #notEditing>
-    <h2>
-      {{ task.title }}
-    </h2>
-    <p>
-      {{ task.description }}
-    </p>
-    <p>
-      <span> Created on : {{ task.creationDate | date }} </span>
-      <span> Execute every {{ task.repeatDelay }} days</span>
-      <span> Next due on : {{ task.execDate | date }} </span>
-    </p>
-    <button (click)="editTask()">Modify</button>
+    <div class="taskCardBody">
+      <h2>
+        {{ task.title }}
+      </h2>
+      <p>
+        {{ task.description }}
+      </p>
+      <p class="taskMetaData">
+        <span> Creation Date : {{ task.creationDate | date }} </span>
+        <span> Next due on : {{ task.execDate | date }} </span>
+        <span> Execute every {{ task.repeatDelay }} days</span>
+      </p>
+      <p>
+        Status :
+        {{ task.completed ? "Done" : "To Do" }}
+      </p>
+      <button (click)="editTask()">Modify</button>
 
-    <button (click)="goBack()">Return</button>
-    <button (click)="deleteTask()">Delete</button>
-    <button (click)="toggleCompletion(task)">
-      {{ task.completed! ? "Not Complete" : "Complete" }}
-    </button>
+      <button (click)="goBack()">Return</button>
+      <button (click)="deleteTask()">Delete</button>
+      <button (click)="toggleCompletion(task)">
+        {{ task.completed! ? "Not Complete" : "Complete" }}
+      </button>
+    </div>
   </ng-template>
-
-  <p>
-    Status :
-    {{ task.completed ? "Done" : "To Do" }}
-  </p>
 </div>
