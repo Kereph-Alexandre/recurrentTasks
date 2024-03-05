@@ -10,7 +10,7 @@
       #title="ngModel"
     />
 
-    <div [hidden]="title.valid || !title.touched" class="alert alert-danger">
+    <div [hidden]="title.valid || !title.pristine" class="alert alert-danger">
       New task requires a title
     </div>
   </div>
