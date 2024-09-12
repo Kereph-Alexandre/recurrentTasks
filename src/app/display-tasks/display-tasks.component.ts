@@ -67,4 +67,8 @@ export class DisplayTasksComponent implements OnInit {
       );
     });
   }
+
+  trackTaskById(index: number, task: RecurrentTask): number {
+    return task.id!;
+  }
 }

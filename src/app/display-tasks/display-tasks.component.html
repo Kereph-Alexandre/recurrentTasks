@@ -8,7 +8,7 @@
 
   <div id="futureTasks">
     <h2>Coming Next !</h2>
-    <span *ngFor="let task of futureTasks">
+    <span *ngFor="let task of futureTasks; ngForTrackBy: trackTaskById">
       <app-task [task]="task"></app-task>
     </span>
   </div>
