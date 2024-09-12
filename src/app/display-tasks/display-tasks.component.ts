@@ -5,6 +5,8 @@ import { RecurrentTask } from '../interface/recurring-task';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../service/task.service';
 
+import { isEqual, startOfDay } from 'date-fns';
+
 @Component({
   selector: 'app-display-tasks',
   standalone: true,
@@ -35,31 +37,43 @@ export class DisplayTasksComponent implements OnInit {
   }
 
   sortTasksByDate(): void {
-    this.tasks = this.tasks.sort((oldestDate, newestDate) => {
-      const dateOldest = new Date(oldestDate.execDate);
-      const dateNewest = new Date(newestDate.execDate);
-      return dateOldest.getTime() - dateNewest.getTime();
+    this.tasks = this.tasks.sort((taskA, taskB) => {
+      if (taskA.execDate === null && taskB.execDate === null) {
+        return 0;
+      }
+
+      if (taskA.execDate === null) {
+        return 1;
+      }
+
+      if (taskB.execDate === null) {
+        return 2;
+      }
+
+      const dateA = startOfDay(new Date(taskA.execDate));
+      const dateB = startOfDay(new Date(taskB.execDate));
+      return dateA.getTime() - dateB.getTime();
     });
   }
 
   filterTodaysTasks(): void {
     //Get today's date
-    const today = new Date();
+    const today = startOfDay(new Date());
 
     //Get all tasks
     this.todaysTasks = this.tasks.filter((task) => {
+      if (task.execDate === null) {
+        return false;
+      }
+
       //Get task next deadline and compare it to today's date
-      const taskDate = new Date(task.execDate);
-      return (
-        taskDate.getDate() === today.getDate() &&
-        taskDate.getMonth() === today.getMonth() &&
-        taskDate.getFullYear() === today.getFullYear()
-      );
+      const taskDate = startOfDay(new Date(task.execDate));
+      return isEqual(taskDate, today);
     });
 
     this.futureTasks = this.tasks.filter((task) => {
       //Get task next deadline and compare it to today's date
-      const taskDate = new Date(task.execDate);
+      const taskDate = new Date(task.execDate!);
       return (
         taskDate.getDate() !== today.getDate() ||
         taskDate.getMonth() !== today.getMonth() ||

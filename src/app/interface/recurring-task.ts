@@ -4,6 +4,6 @@ export interface RecurrentTask {
   description: string;
   repeatDelay: number;
   creationDate: Date;
-  execDate: Date;
+  execDate: Date | null;
   completed: boolean;
 }

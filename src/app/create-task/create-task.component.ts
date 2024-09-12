@@ -22,7 +22,7 @@ export class CreateTaskComponent {
     description: '',
     repeatDelay: 0, //start at an invalid value to ensure user input
     creationDate: new Date(),
-    execDate: startOfDay(subDays(new Date(), 1)), //initialise to current day date, without hours
+    execDate: null, //initialise to current day date, without hours
     completed: false, // task is uncompleted by default, ofc
   };
 
@@ -73,11 +73,13 @@ export class CreateTaskComponent {
     }
 
     //Ensure execDate is valid, i.e. not in the past
-    if (this.modelTask.execDate < currentDate) {
-      console.log(
-        `invalid date ${this.modelTask.execDate}, task cannot be scheduled to past date`
-      );
-      return false;
+    if (this.modelTask.execDate != null) {
+      if (this.modelTask.execDate < currentDate) {
+        console.log(
+          `invalid date ${this.modelTask.execDate}, task cannot be scheduled to past date`
+        );
+        return false;
+      }
     }
 
     //Ensure repeatDelay is valid, currently between 1 and 365 days (assuming a repetitive task should not be less than once a year, not taking into account 366 days years)
