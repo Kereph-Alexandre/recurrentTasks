@@ -1,0 +1,9 @@
+<dialog *ngIf="errorMessage" class="error-dialog">
+  <h2>OOPS !</h2>
+  <section>
+    <p>
+      {{ errorMessage }}
+    </p>
+    <button (click)="closeDialog()">OK</button>
+  </section>
+</dialog>
