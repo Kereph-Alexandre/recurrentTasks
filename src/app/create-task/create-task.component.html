@@ -7,14 +7,20 @@
       name="title"
       id="title"
       required
+      minlength="3"
       #title="ngModel"
     />
 
-    <div [hidden]="title.valid || !title.pristine" class="alert alert-danger">
-      New task requires a title
+    <!-- Error messages for title -->
+    <div *ngIf="title.invalid" class="alert alert-danger">
+      <div *ngIf="title.errors?.['required']">New task requires a title.</div>
+      <div *ngIf="title.errors?.['minlength']">
+        Title must be at least 3 characters long.
+      </div>
     </div>
   </div>
 
+  <!-- Description textarea -->
   <div class="form-group">
     <label for="description">Description</label>
     <textarea
@@ -25,6 +31,7 @@
     </textarea>
   </div>
 
+  <!-- ExecDate Field -->
   <div class="form-group">
     <label for="execDate">1st Deadline : </label>
     <input
@@ -34,11 +41,23 @@
       name="execDate"
       [min]="minDate"
       required
+      #execdate="ngModel"
     />
+
+    <!-- Error messages for execDate -->
+    <div *ngIf="execdate.invalid" class="alert alert-danger">
+      <div *ngIf="execdate.errors?.['required']">
+        The 1st deadline date is required
+      </div>
+      <div *ngIf="execdate.errors?.['min']">
+        the date cannot be earlier than today
+      </div>
+    </div>
   </div>
 
+  <!-- RepeatDelay Field -->
   <div class="form-group">
-    <label for="repeatDelay">Repeat every (in days) </label>
+    <label for="repeatDelay">Repeat every (in days): </label>
     <input
       type="number"
       id="repeatDelay"
@@ -47,7 +66,20 @@
       min="1"
       max="365"
       required
+      #repeatDelay="ngModel"
     />
+
+    <!-- Error messages for RepeatDelay -->
+    <div *ngIf="repeatDelay.invalid" class="alert alert-danger">
+      <div *ngIf="repeatDelay.errors?.['required']">
+        Please specify the delay between each occurences, in days
+      </div>
+      <div *ngIf="repeatDelay.errors?.['min'] || repeatDelay.errors?.['max']">
+        Time interval between occurences must be comprised between 1 and 365
+        days
+      </div>
+    </div>
   </div>
+
   <button [disabled]="!taskForm.form.valid" type="submit">Add Task</button>
 </form>
