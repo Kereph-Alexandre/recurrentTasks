@@ -33,8 +33,13 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
+    this.loadTasks();
+
+    this.taskService.taskUpdated$.subscribe(() => this.loadTasks());
+  }
+
+  private loadTasks(): void {
     this.taskService.getTasks().subscribe((tasks) => {
-      console.log('got list of tasks');
       this.taskOperationsService.updateAllTasks(tasks);
     });
   }

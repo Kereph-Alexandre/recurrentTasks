@@ -30,16 +30,25 @@ export class TaskDetailComponent {
   ) {}
 
   ngOnInit() {
-    this.getTask();
-    this.taskService.taskUpdated$.subscribe(() => this.getTask());
+    this.loadTask();
+
+    this.taskService.taskUpdated$.subscribe(() => this.loadTask());
+
     this.route.paramMap.subscribe(
       (params) => (this.isEditing = params.get('isEditing') === 'true')
     );
   }
 
-  getTask(): void {
+  private loadTask(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.taskService.getTaskById(id).subscribe((task) => (this.task = task));
+
+    this.taskService.getTaskById(id).subscribe((task) => {
+      if (task) {
+        this.task = task;
+      } else {
+        console.error('task not found');
+      }
+    });
   }
 
   goBack(): void {

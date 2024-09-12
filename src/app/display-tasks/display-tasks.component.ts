@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RecurrentTask } from '../interface/recurring-task';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../service/task.service';
-import { TaskOperationsService } from '../service/task-operations.service';
 
 @Component({
   selector: 'app-display-tasks',
@@ -19,17 +18,15 @@ export class DisplayTasksComponent implements OnInit {
   todaysTasks: RecurrentTask[] = [];
   futureTasks: RecurrentTask[] = [];
 
-  constructor(
-    private taskService: TaskService,
-    private taskOperationsService: TaskOperationsService
-  ) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit() {
-    this.getTasks();
-    this.taskService.taskUpdated$.subscribe(() => this.getTasks());
+    this.loadTasks();
+
+    this.taskService.taskUpdated$.subscribe(() => this.loadTasks());
   }
 
-  getTasks(): void {
+  private loadTasks(): void {
     this.taskService.getTasks().subscribe((tasks) => {
       this.tasks = tasks;
       this.sortTasksByDate();
