@@ -17,10 +17,12 @@ export class ErrorDialogComponent implements OnInit, OnDestroy {
   constructor(private errorManager: ErrorManagerService) {}
 
   ngOnInit() {
-    document.body.classList.add('dialog-open');
     this.errorManager.errorUpdated$.subscribe({
       next: (errorMessages) => {
         this.errorMessages = errorMessages;
+        if (this.errorMessages.length > 0) {
+          document.body.classList.add('dialog-open');
+        }
       },
     });
   }
