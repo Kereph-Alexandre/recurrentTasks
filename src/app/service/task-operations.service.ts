@@ -3,6 +3,8 @@ import { RecurrentTask } from '../interface/recurring-task';
 import { TaskService } from './task.service';
 import { Observable, map } from 'rxjs';
 
+import { startOfDay } from 'date-fns';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,18 +23,16 @@ export class TaskOperationsService {
 
   updateTaskStatus(tasks: RecurrentTask[]): RecurrentTask[] {
     //get current date
-    const currentDate = new Date();
+    const currentDate = startOfDay(new Date());
 
     //filter tasks with next deadline set to today
     const todaysTasks: RecurrentTask[] = tasks.filter((task) => {
-      const taskDate = new Date(task.execDate);
+      if (!task.execDate) {
+        return false;
+      }
+      const taskDate = startOfDay(new Date(task.execDate));
 
-      return (
-        taskDate.getFullYear() === currentDate.getFullYear() &&
-        taskDate.getMonth() === currentDate.getMonth() &&
-        taskDate.getDate() === currentDate.getDate() &&
-        task.completed
-      );
+      return taskDate.getTime() === currentDate.getTime() && task.completed;
     });
 
     //mark tasks as incomplete and update them
@@ -49,20 +49,16 @@ export class TaskOperationsService {
 
   updateTaskDates(tasks: RecurrentTask[]): RecurrentTask[] {
     //get current date
-    const currentDate = new Date();
+    const currentDate = startOfDay(new Date());
 
     //filter list to keep only the tasks with date anterior to current day
     const pastDueTasks = tasks.filter((task) => {
-      const taskDate = new Date(task.execDate);
+      if (!task.execDate) {
+        return false;
+      }
+      const taskDate = startOfDay(new Date(task.execDate));
 
-      return (
-        taskDate.getFullYear() < currentDate.getFullYear() ||
-        (taskDate.getMonth() < currentDate.getMonth() &&
-          taskDate.getFullYear() === currentDate.getFullYear()) ||
-        (taskDate.getDate() < currentDate.getDate() &&
-          taskDate.getMonth() === currentDate.getMonth() &&
-          taskDate.getFullYear() === currentDate.getFullYear())
-      );
+      return taskDate.getTime() < currentDate.getTime();
     });
 
     //foreach task on the list,

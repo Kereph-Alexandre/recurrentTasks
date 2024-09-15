@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ErrorManagerService } from '../service/error-manager.service';
 
@@ -9,22 +9,35 @@ import { ErrorManagerService } from '../service/error-manager.service';
   templateUrl: './error-dialog.component.html',
   styleUrl: './error-dialog.component.sass',
 })
-export class ErrorDialogComponent {
+export class ErrorDialogComponent implements OnInit, OnDestroy {
   @Input() errorMessage?: string;
-  errorOccurred: boolean = false;
+
+  errorMessages: string[] = [];
 
   constructor(private errorManager: ErrorManagerService) {}
 
   ngOnInit() {
+    document.body.classList.add('dialog-open');
     this.errorManager.errorUpdated$.subscribe({
-      next: (errorMessage) => {
-        this.errorMessage = errorMessage;
-        this.errorOccurred = true;
+      next: (errorMessages) => {
+        this.errorMessages = errorMessages;
       },
     });
   }
 
-  closeDialog() {
-    this.errorOccurred = false;
+  closeDialog(index: number): void {
+    this.errorMessages.splice(index, 1);
+    if (this.errorMessages.length === 0) {
+      document.body.classList.remove('dialog-open');
+    }
+  }
+
+  closeAllDialogs(): void {
+    this.errorManager.clearErrors();
+    document.body.classList.remove('dialog-open');
+  }
+
+  ngOnDestroy(): void {
+    document.body.classList.remove('dialog-open');
   }
 }

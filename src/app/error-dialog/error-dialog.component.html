@@ -1,9 +1,12 @@
-<dialog *ngIf="errorMessage" class="error-dialog">
+<dialog *ngIf="errorMessages.length > 0" class="error-dialog" open>
   <h2>OOPS !</h2>
   <section>
-    <p>
-      {{ errorMessage }}
+    <p *ngFor="let oneError of errorMessages; let i = index">
+      {{ oneError }}
+      <button (click)="closeDialog(i)">OK</button>
     </p>
-    <button (click)="closeDialog()">OK</button>
+  </section>
+  <section>
+    <button (click)="closeAllDialogs()">OK</button>
   </section>
 </dialog>
