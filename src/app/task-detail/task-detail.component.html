@@ -25,10 +25,56 @@
       </span>
     </p>
 
-    <!-- task recurrence number input -->
+    <!-- RecurrenceType options -->
+    <div class="form-group">
+      <label>Recurrence definition</label>
+      <div>
+        <label for="">
+          <input
+            type="radio"
+            name="recurrenceType"
+            [(ngModel)]="task.reccurenceType"
+            [value]="'number of days'"
+            required
+          />
+          Number of days
+        </label>
+        <label for="">
+          <input
+            type="radio"
+            name="reccurenceType"
+            [(ngModel)]="task.reccurenceType"
+            [value]="'specific day'"
+            required
+          />
+          Specific day
+        </label>
+      </div>
+    </div>
+
+    <!-- task recurrence input -->
     <div class="form-group">
       <label for="taskRepeat">Execute every : </label>
-      <input type="number" [(ngModel)]="task.repeatDelay" />
+      <input
+        *ngIf="task.reccurenceType === 'number of days'"
+        type="number"
+        [(ngModel)]="task.repeatDelay"
+      />
+      <select
+        *ngIf="task.reccurenceType === 'specific day'"
+        [(ngModel)]="task.recurrenceDay"
+        name="recurrenceDay"
+        required
+        #recurrenceDay="ngModel"
+      >
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+      </select>
     </div>
 
     <!-- task status -->
