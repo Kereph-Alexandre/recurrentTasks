@@ -23,7 +23,8 @@ export class CreateTaskComponent {
     repeatDelay: 0, //start at an invalid value to ensure user input
     creationDate: new Date(),
     execDate: null, //initialise to current day date, without hours
-    completed: false, // task is uncompleted by default, ofc
+    completed: false,
+    reccurenceType: 'number of days',
   };
 
   //Define min date for execDate input
@@ -83,7 +84,10 @@ export class CreateTaskComponent {
     }
 
     //Ensure repeatDelay is valid, currently between 1 and 365 days (assuming a repetitive task should not be less than once a year, not taking into account 366 days years)
-    if (this.modelTask.repeatDelay < 1 || this.modelTask.repeatDelay > 365) {
+    if (
+      this.modelTask.repeatDelay &&
+      (this.modelTask.repeatDelay < 1 || this.modelTask.repeatDelay > 365)
+    ) {
       console.log(
         `invalid repeat delay: ${this.modelTask.repeatDelay} days. Must be comprised between 1 and 365 days`
       );

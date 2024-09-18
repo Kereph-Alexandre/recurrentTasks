@@ -55,8 +55,37 @@
     </div>
   </div>
 
-  <!-- RepeatDelay Field -->
+  <!-- Choice for ReccurenceType -->
   <div class="form-group">
+    <label for="">
+      Recurrence definition :
+      <div>
+        <label for="">
+          <input
+            type="radio"
+            [(ngModel)]="modelTask.reccurenceType"
+            name="reccurenceType"
+            [value]="'number of days'"
+            required
+          />
+          Number of Days
+        </label>
+        <label for="">
+          <input
+            type="radio"
+            [(ngModel)]="modelTask.reccurenceType"
+            name="reccurenceType"
+            [value]="'specific day'"
+          />
+
+          Specific day of the week
+        </label>
+      </div>
+    </label>
+  </div>
+
+  <!-- RepeatDelay Field -->
+  <div class="form-group" *ngIf="modelTask.reccurenceType === 'number of days'">
     <label for="repeatDelay">Repeat every (in days): </label>
     <input
       type="number"
@@ -77,6 +106,31 @@
       <div *ngIf="repeatDelay.errors?.['min'] || repeatDelay.errors?.['max']">
         Time interval between occurences must be comprised between 1 and 365
         days
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="modelTask.reccurenceType === 'specific day'">
+    <label for="recurrenceDay">Repeat every:</label>
+    <select
+      [(ngModel)]="modelTask.recurrenceDay"
+      name="recurrenceDay"
+      required
+      #recurrenceDay="ngModel"
+    >
+      <option value="Monday">Monday</option>
+      <option value="Tuesday">Tuesday</option>
+      <option value="Wednesday">Wednesday</option>
+      <option value="Thursday">Thursday</option>
+      <option value="Friday">Friday</option>
+      <option value="Saturday">Saturday</option>
+      <option value="Sunday">Sunday</option>
+    </select>
+
+    <!-- Error messages for ReccurencePattern -->
+    <div *ngIf="recurrenceDay.invalid" class="alert alert-danger">
+      <div *ngIf="recurrenceDay.errors?.['required']">
+        Please specify the day at which to repeat the task
       </div>
     </div>
   </div>
