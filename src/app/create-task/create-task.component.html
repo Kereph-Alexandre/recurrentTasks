@@ -57,80 +57,118 @@
 
   <!-- Choice for ReccurenceType -->
   <div class="form-group">
-    <label for="">
-      Recurrence definition :
-      <div>
-        <label for="">
-          <input
-            type="radio"
-            [(ngModel)]="modelTask.reccurenceType"
-            name="reccurenceType"
-            [value]="'number of days'"
-            required
-          />
-          Number of Days
-        </label>
-        <label for="">
-          <input
-            type="radio"
-            [(ngModel)]="modelTask.reccurenceType"
-            name="reccurenceType"
-            [value]="'specific day'"
-          />
-
-          Specific day of the week
-        </label>
+    <!-- Accordion tentative -->
+    <div class="accordion">
+      <!-- Accordion 1st -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button"
+            type="button"
+            (click)="toggleAccordion('number of days')"
+          >
+            Number of days
+          </button>
+        </h2>
+        <div
+          class="accordion-collapse"
+          *ngIf="selectedAccordion === 'number of days'"
+        >
+          <div class="accordion-body">
+            <label for="repeatDelay">Repeat every : </label>
+            <input
+              type="number"
+              id="repeatDelay"
+              [(ngModel)]="modelTask.repeatDelay"
+              name="repeatDelay"
+              min="1"
+              max="365"
+              required
+              #repeatDelay="ngModel"
+            />
+            <!-- Error messages for RepeatDelay -->
+            <div *ngIf="repeatDelay.invalid" class="alert alert-danger">
+              <div *ngIf="repeatDelay.errors?.['required']">
+                Please specify the delay between each occurences, in days
+              </div>
+              <div
+                *ngIf="repeatDelay.errors?.['min'] || repeatDelay.errors?.['max']"
+              >
+                Time interval between occurences must be comprised between 1 and
+                365 days
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </label>
-  </div>
-
-  <!-- RepeatDelay Field -->
-  <div class="form-group" *ngIf="modelTask.reccurenceType === 'number of days'">
-    <label for="repeatDelay">Repeat every (in days): </label>
-    <input
-      type="number"
-      id="repeatDelay"
-      [(ngModel)]="modelTask.repeatDelay"
-      name="repeatDelay"
-      min="1"
-      max="365"
-      required
-      #repeatDelay="ngModel"
-    />
-
-    <!-- Error messages for RepeatDelay -->
-    <div *ngIf="repeatDelay.invalid" class="alert alert-danger">
-      <div *ngIf="repeatDelay.errors?.['required']">
-        Please specify the delay between each occurences, in days
+      <!-- Accordion 2nd : Specific day  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button"
+            type="button"
+            (click)="toggleAccordion('specific day')"
+          >
+            Specific day
+          </button>
+          <div
+            *ngIf="selectedAccordion === 'specific day'"
+            class="accordion-collapse"
+          >
+            <div class="accordion-body">
+              <label for="recurrenceDay">Repeat every : </label>
+              <select
+                [(ngModel)]="modelTask.recurrenceDay"
+                name="recurrenceDay"
+                required
+                #recurrenceDay="ngModel"
+              >
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+            <!-- Error messages for ReccurencePattern -->
+            <div
+              *ngIf="recurrenceDay.invalid || recurrenceDay.untouched"
+              class="alert alert-danger"
+            >
+              <div *ngIf="recurrenceDay.errors?.['required']">
+                Please specify the day at which to repeat the task
+              </div>
+            </div>
+          </div>
+        </h2>
       </div>
-      <div *ngIf="repeatDelay.errors?.['min'] || repeatDelay.errors?.['max']">
-        Time interval between occurences must be comprised between 1 and 365
-        days
-      </div>
-    </div>
-  </div>
 
-  <div class="form-group" *ngIf="modelTask.reccurenceType === 'specific day'">
-    <label for="recurrenceDay">Repeat every:</label>
-    <select
-      [(ngModel)]="modelTask.recurrenceDay"
-      name="recurrenceDay"
-      required
-      #recurrenceDay="ngModel"
-    >
-      <option value="Monday">Monday</option>
-      <option value="Tuesday">Tuesday</option>
-      <option value="Wednesday">Wednesday</option>
-      <option value="Thursday">Thursday</option>
-      <option value="Friday">Friday</option>
-      <option value="Saturday">Saturday</option>
-      <option value="Sunday">Sunday</option>
-    </select>
-
-    <!-- Error messages for ReccurencePattern -->
-    <div *ngIf="recurrenceDay.invalid" class="alert alert-danger">
-      <div *ngIf="recurrenceDay.errors?.['required']">
-        Please specify the day at which to repeat the task
+      <!-- Accordion 3nd -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            type="button"
+            class="accordion-button"
+            (click)="toggleAccordion('monthly')"
+          >
+            Day of the month
+          </button>
+        </h2>
+        <div class="accordion-collapse" *ngIf="selectedAccordion === 'monthly'">
+          <div class="accordion-body">
+            <label for="monthlyDay"> Repeat every : </label>
+            <input
+              type="number"
+              name=""
+              id=""
+              [(ngModel)]="modelTask.monthlyDay"
+              min="1"
+              max="31"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

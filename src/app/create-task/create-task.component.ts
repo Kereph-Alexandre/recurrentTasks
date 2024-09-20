@@ -30,6 +30,9 @@ export class CreateTaskComponent {
   //Define min date for execDate input
   minDate: string = new Date().toISOString().split('T')[0];
 
+  //Default accordion openning
+  selectedAccordion: string = '';
+
   constructor(private taskService: TaskService, private router: Router) {}
 
   /**
@@ -95,5 +98,9 @@ export class CreateTaskComponent {
     }
 
     return true;
+  }
+
+  toggleAccordion(accordion: string) {
+    this.selectedAccordion = accordion;
   }
 }
