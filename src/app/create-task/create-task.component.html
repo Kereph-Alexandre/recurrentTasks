@@ -56,7 +56,8 @@
   </div>
 
   <!-- Choice for ReccurenceType -->
-  <div class="form-group">
+  <div class="form-group recurrenceTypeDefinition">
+    <h2>Define tasks recurrence buy :</h2>
     <!-- Accordion tentative -->
     <div class="accordion">
       <!-- Accordion 1st -->
@@ -111,38 +112,38 @@
           >
             Specific day
           </button>
-          <div
-            *ngIf="selectedAccordion === 'specific day'"
-            class="accordion-collapse"
-          >
-            <div class="accordion-body">
-              <label for="recurrenceDay">Repeat every : </label>
-              <select
-                [(ngModel)]="modelTask.recurrenceDay"
-                name="recurrenceDay"
-                required
-                #recurrenceDay="ngModel"
-              >
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-              </select>
-            </div>
-            <!-- Error messages for ReccurencePattern -->
-            <div
-              *ngIf="recurrenceDay.invalid || recurrenceDay.untouched"
-              class="alert alert-danger"
+        </h2>
+        <div
+          *ngIf="selectedAccordion === 'specific day'"
+          class="accordion-collapse"
+        >
+          <div class="accordion-body">
+            <label for="recurrenceDay">Repeat every : </label>
+            <select
+              [(ngModel)]="modelTask.recurrenceDay"
+              name="recurrenceDay"
+              required
+              #recurrenceDay="ngModel"
             >
-              <div *ngIf="recurrenceDay.errors?.['required']">
-                Please specify the day at which to repeat the task
-              </div>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+          </div>
+          <!-- Error messages for ReccurencePattern -->
+          <div
+            *ngIf="recurrenceDay.invalid || recurrenceDay.untouched"
+            class="alert alert-danger"
+          >
+            <div *ngIf="recurrenceDay.errors?.['required']">
+              Please specify the day at which to repeat the task
             </div>
           </div>
-        </h2>
+        </div>
       </div>
 
       <!-- Accordion 3nd -->
