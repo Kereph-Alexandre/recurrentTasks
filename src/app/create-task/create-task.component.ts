@@ -8,10 +8,16 @@ import { Router } from '@angular/router';
 
 import { startOfDay, subDays } from 'date-fns';
 
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-create-task',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule],
   templateUrl: './create-task.component.html',
   styleUrl: './create-task.component.sass',
 })
@@ -33,7 +39,13 @@ export class CreateTaskComponent {
   //Default accordion openning
   selectedAccordion: string = '';
 
-  constructor(private taskService: TaskService, private router: Router) {}
+  constructor(
+    private taskService: TaskService,
+    private router: Router,
+    library: FaIconLibrary
+  ) {
+    library.addIcons(faChevronDown, faChevronUp);
+  }
 
   /**
    * Method called at form submission, prevents default form behaviour and ensures valid form is submitted
@@ -100,7 +112,12 @@ export class CreateTaskComponent {
     return true;
   }
 
-  toggleAccordion(accordion: string) {
-    this.selectedAccordion = accordion;
+  toggleAccordion(accordionId: string) {
+    this.selectedAccordion =
+      this.selectedAccordion === accordionId ? '' : accordionId;
+  }
+
+  isAccordionOpen(accordionId: string): boolean {
+    return this.selectedAccordion === accordionId;
   }
 }

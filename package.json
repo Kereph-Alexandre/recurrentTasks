@@ -18,6 +18,8 @@
     "@angular/platform-browser": "^18.2.6",
     "@angular/platform-browser-dynamic": "^18.2.6",
     "@angular/router": "^18.2.6",
+    "@fortawesome/angular-fontawesome": "^0.15.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "angular-in-memory-web-api": "^0.17.0",
     "date-fns": "^3.6.0",
     "rxjs": "~7.8.0",

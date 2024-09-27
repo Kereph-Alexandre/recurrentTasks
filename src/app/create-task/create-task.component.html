@@ -68,6 +68,13 @@
             type="button"
             (click)="toggleAccordion('number of days')"
           >
+            <fa-icon
+              [icon]="
+                isAccordionOpen('number of days')
+                  ? 'chevron-up'
+                  : 'chevron-down'
+              "
+            ></fa-icon>
             Number of days
           </button>
         </h2>
@@ -110,6 +117,11 @@
             type="button"
             (click)="toggleAccordion('specific day')"
           >
+            <fa-icon
+              [icon]="
+                isAccordionOpen('specific day') ? 'chevron-up' : 'chevron-down'
+              "
+            ></fa-icon>
             Specific day
           </button>
         </h2>
@@ -154,6 +166,11 @@
             class="accordion-button"
             (click)="toggleAccordion('monthly')"
           >
+            <fa-icon
+              [icon]="
+                isAccordionOpen('monthly') ? 'chevron-up' : 'chevron-down'
+              "
+            ></fa-icon>
             Day of the month
           </button>
         </h2>
